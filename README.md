@@ -38,10 +38,17 @@ After install, grant permissions in **System Settings > Privacy & Security**:
 2. **Input Monitoring** — add your terminal app
 3. **Microphone** — will prompt automatically on first use
 
+Add `~/.local/bin` to your PATH so you can just type `stimme`:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
 Then quit and reopen Terminal, and run:
 
 ```bash
-~/.local/bin/stimme
+stimme
 ```
 
 > **Note:** On Mac laptops, press **Fn + F9** to trigger the hotkey,
