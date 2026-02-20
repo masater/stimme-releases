@@ -10,10 +10,10 @@ Stimme release binaries — voice-to-text with a global hotkey.
 uname -m
 ```
 
-| Output     | Platform              | Binary                 |
-|------------|-----------------------|------------------------|
-| `x86_64` (Linux) | Linux x86_64   | `stimme-linux-x86_64`  |
-| `arm64`    | macOS Apple Silicon   | `stimme-macos-aarch64` |
+| Output     | Platform              | Asset                          |
+|------------|-----------------------|--------------------------------|
+| `x86_64` (Linux) | Linux x86_64   | `stimme-linux-x86_64`          |
+| `arm64`    | macOS Apple Silicon   | `Stimme-macos-aarch64.zip`     |
 
 ### Linux
 
@@ -26,30 +26,32 @@ chmod +x stimme
 ### macOS (Apple Silicon)
 
 ```bash
-curl -fsSL -o stimme https://github.com/masater/stimme-releases/releases/latest/download/stimme-macos-aarch64
-chmod +x stimme
-xattr -d com.apple.quarantine stimme
-./stimme --install
+curl -fsSL -o Stimme.zip https://github.com/masater/stimme-releases/releases/latest/download/Stimme-macos-aarch64.zip
+unzip Stimme.zip -d ~/Applications/
+xattr -dr com.apple.quarantine ~/Applications/Stimme.app
+~/Applications/Stimme.app/Contents/MacOS/stimme --install
 ```
 
-After install, grant permissions in **System Settings > Privacy & Security**:
+The installer opens a graphical setup wizard. After setup, grant
+permissions in **System Settings > Privacy & Security**:
 
-1. **Accessibility** — add your terminal app (e.g. Terminal.app)
-2. **Input Monitoring** — add your terminal app
+1. **Accessibility** — add **Stimme** (not Terminal)
+2. **Input Monitoring** — add **Stimme**
 3. **Microphone** — will prompt automatically on first use
 
-Add `~/.local/bin` to your PATH so you can just type `stimme`:
+Stimme starts automatically on login via LaunchAgent.
+
+To run manually:
 
 ```bash
-echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+~/Applications/Stimme.app/Contents/MacOS/stimme
 ```
 
-Then quit and reopen Terminal, and run:
-
-```bash
-stimme
-```
+> **Tip:** Add the binary to your PATH so you can just type `stimme`:
+> ```bash
+> echo 'export PATH="$HOME/Applications/Stimme.app/Contents/MacOS:$PATH"' >> ~/.zshrc
+> source ~/.zshrc
+> ```
 
 > **Note:** On Mac laptops, press **Fn + F9** to trigger the hotkey,
 > or enable "Use F1, F2, etc. keys as standard function keys" in
@@ -70,9 +72,14 @@ stimme --uninstall
 
 **macOS:**
 ```bash
+stimme --uninstall
+```
+
+Or manually:
+```bash
 pkill stimme
-rm ~/.local/bin/stimme
-rm ~/Library/LaunchAgents/com.stimme.plist
+rm -rf ~/Applications/Stimme.app
+rm ~/Library/LaunchAgents/com.stimme.daemon.plist
 rm -rf ~/Library/Application\ Support/stimme
 ```
 
