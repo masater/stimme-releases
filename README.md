@@ -6,14 +6,11 @@ Stimme release binaries — voice-to-text with a global hotkey.
 
 ### Check your platform
 
-```bash
-uname -m
-```
-
-| Output     | Platform              | Asset                          |
-|------------|-----------------------|--------------------------------|
-| `x86_64` (Linux) | Linux x86_64   | `stimme-linux-x86_64`          |
-| `arm64`    | macOS Apple Silicon   | `Stimme-macos-aarch64.zip`     |
+| Platform              | Asset                          |
+|-----------------------|--------------------------------|
+| Linux x86_64          | `stimme-linux-x86_64`          |
+| macOS Apple Silicon   | `Stimme-macos-aarch64.zip`     |
+| Windows x86_64        | `stimme-windows-x86_64.exe`    |
 
 ### Linux
 
@@ -57,6 +54,31 @@ To run manually:
 > or enable "Use F1, F2, etc. keys as standard function keys" in
 > System Settings > Keyboard.
 
+### Windows
+
+1. Download [`stimme-windows-x86_64.exe`](https://github.com/masater/stimme-releases/releases/latest/download/stimme-windows-x86_64.exe)
+2. Double-click the exe to run it — a graphical setup wizard will appear on first launch
+
+> **SmartScreen warning:** Because the exe is not code-signed, Windows
+> may show "Windows protected your PC". Click **More info** then
+> **Run anyway**.
+
+> **Firewall:** If you chose Deepgram (cloud) as your speech backend,
+> Windows Firewall may ask to allow network access for **stimme.exe** —
+> click **Allow**.
+
+All permissions (keyboard hook, text injection, network) are granted
+to **stimme.exe** directly — not to a terminal or command prompt.
+
+Stimme installs to `%LOCALAPPDATA%\Programs\stimme\` and starts
+automatically on login via a Startup folder shortcut.
+
+To run from the command line:
+
+```
+%LOCALAPPDATA%\Programs\stimme\stimme.exe
+```
+
 ### Update
 
 ```bash
@@ -82,6 +104,14 @@ rm -rf ~/Applications/Stimme.app
 rm ~/Library/LaunchAgents/com.stimme.daemon.plist
 rm -rf ~/Library/Application\ Support/stimme
 ```
+
+**Windows:**
+```
+stimme.exe --uninstall
+```
+
+Or manually: delete `%LOCALAPPDATA%\Programs\stimme\` and remove
+`Stimme.bat` from `shell:startup`.
 
 ## Redistribution and Usage
 
